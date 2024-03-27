@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  grafana:
+    image: grafana/grafana-enterprise
+    container_name: grafana
+    restart: unless-stopped
+    # if you are running as root then set it to 0
+    # else find the right id with the id -u command
+    user: '0'
+    environment:
+     - GF_INSTALL_PLUGINS=grafana-bigquery-datasource
+    ports:
+      - '3002:3000'
+    # adding the mount volume point which we create earlier
+    volumes:
+      - './data:/var/lib/grafana'
